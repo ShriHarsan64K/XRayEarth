@@ -30,7 +30,7 @@ omegaconf==2.3.0
 wandb==0.16.6
 
 # ── Metrics ───────────────────────────────────────────────
-scikit-learn==1.4.1
+scikit-learn==1.3.2
 torchmetrics==1.3.1
 
 # ── ONNX Export ───────────────────────────────────────────
