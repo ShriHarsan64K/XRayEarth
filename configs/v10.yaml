@@ -1,0 +1,19 @@
+defaults:
+  - v9
+
+project:
+  version: v10
+  description: "FULL SYSTEM — Siamese + Focal Loss + 512x512 tiles"
+
+model:
+  backbone: resnet50       # back to resnet50 for full system
+  siamese: true
+  fusion: concat_diff
+
+loss:
+  type: focal
+  focal_gamma: 2.0
+  focal_alpha: 0.25
+
+dataset:
+  tile_size: 512

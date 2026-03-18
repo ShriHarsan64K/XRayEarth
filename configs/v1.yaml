@@ -1,0 +1,19 @@
+defaults:
+  - base
+
+project:
+  version: v1
+  description: "Baseline — single image, CrossEntropy, no pretrained backbone"
+
+model:
+  pretrained: false
+  siamese: false
+
+loss:
+  type: cross_entropy
+
+dataset:
+  tile_size: 384
+
+augmentation:
+  enabled: false

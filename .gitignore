@@ -1,0 +1,40 @@
+# ── Dataset (never commit) ────────────────────────────────
+data/pre/
+data/post/
+data/labels/
+data/tile_cache/
+
+# ── Outputs (large binary files) ──────────────────────────
+outputs/checkpoints/*.pth
+outputs/checkpoints/*.pt
+outputs/trt/*.onnx
+outputs/trt/*.engine
+outputs/predictions/
+
+# Keep directory structure via .gitkeep
+!outputs/**/.gitkeep
+!data/**/.gitkeep
+
+# ── Environment ───────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+dist/
+build/
+
+# ── WandB ─────────────────────────────────────────────────
+wandb/
+
+# ── Jupyter ───────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── OS ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
