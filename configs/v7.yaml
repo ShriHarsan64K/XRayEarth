@@ -1,0 +1,22 @@
+defaults:
+  - v6
+
+project:
+  version: v7
+  description: "V6 + Dropout in classifier head (regularization effect)"
+
+model:
+  pretrained: true
+  classifier_head: deep
+  freeze_backbone: false
+  dropout: 0.3
+
+loss:
+  type: cross_entropy
+
+training:
+  learning_rate: 0.00005
+  weight_decay: 0.0005
+
+augmentation:
+  enabled: true

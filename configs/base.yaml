@@ -1,6 +1,10 @@
 # ═══════════════════════════════════════════════════════════
 #  XRayEarth — base.yaml
-#  All shared defaults. Version configs override these.
+#  Real xBD dataset structure:
+#    {data_dir}/tier1/images/, tier1/labels/
+#    {data_dir}/tier3/images/, tier3/labels/
+#    {data_dir}/hold/images/,  hold/labels/
+#    {data_dir}/test/images/,  test/labels/
 # ═══════════════════════════════════════════════════════════
 
 project:
@@ -9,63 +13,65 @@ project:
   seed: 42
 
 paths:
-  data_dir: ${oc.env:DATA_DIR,./data}
-  pre_dir: ${oc.env:PRE_DIR,./data/pre}
-  post_dir: ${oc.env:POST_DIR,./data/post}
-  labels_dir: ${oc.env:LABELS_DIR,./data/labels}
-  cache_dir: ${oc.env:CACHE_DIR,./data/tile_cache}
-  output_dir: ${oc.env:OUTPUT_DIR,./outputs}
+  # Root xBD directory — set DATA_DIR in .env
+  data_dir:       ${oc.env:DATA_DIR,./data}
+  cache_dir:      ${oc.env:CACHE_DIR,./data/tile_cache}
+  output_dir:     ${oc.env:OUTPUT_DIR,./outputs}
   checkpoint_dir: ${oc.env:CHECKPOINT_DIR,./outputs/checkpoints}
 
 dataset:
-  tile_size: 384
-  overlap: 0.15            # 15% overlap between tiles
-  min_area_ratio: 0.1      # discard buildings covering < 10% of tile
+  # Split → folder mapping (defined in dataset.py SPLIT_FOLDERS)
+  # train → tier1/ + tier3/
+  # val   → hold/
+  # test  → test/
+  tile_size:          384
+  overlap:            0.15
+  min_area_ratio:     0.1
   filter_empty_tiles: true
-  use_cache: true          # hybrid caching strategy
+  use_cache:          true
 
 model:
-  backbone: resnet50
-  pretrained: false
-  num_classes: 4           # 0:no-damage 1:minor 2:major 3:destroyed
-  siamese: false           # enabled from v2+
-  fusion: concat_diff      # concat + difference at FPN level
-  dropout: 0.0
-  norm_layer: batch_norm
+  backbone:    resnet50
+  pretrained:  false
+  num_classes: 4
+  siamese:     false
+  fusion:      concat_diff
+  dropout:     0.0
+  norm_layer:  batch_norm
 
 loss:
-  type: cross_entropy      # cross_entropy | focal
-  focal_gamma: 2.0
-  focal_alpha: 0.25
+  type:         cross_entropy
+  focal_gamma:  2.0
+  focal_alpha:  0.25
 
 training:
-  epochs: 30
-  batch_size: 2
-  num_workers: 4
-  learning_rate: 0.0001
-  weight_decay: 0.0001
-  amp: true                # mixed precision always on
-  clip_grad_norm: 1.0
-  save_every: 5            # save checkpoint every N epochs
-  early_stop_patience: 10
+  epochs:               30
+  batch_size:           2
+  num_workers:          4
+  learning_rate:        0.0001
+  weight_decay:         0.0001
+  amp:                  true
+  clip_grad_norm:       1.0
+  save_every:           5
+  early_stop_patience:  10
 
 augmentation:
-  enabled: false
-  horizontal_flip: 0.5
-  vertical_flip: 0.5
-  rotation: 15
-  color_jitter: 0.2
-  brightness: 0.2
-  contrast: 0.2
+  enabled:          false
+  horizontal_flip:  0.5
+  vertical_flip:    0.5
+  rotation:         15
+  color_jitter:     0.2
+  brightness:       0.2
+  contrast:         0.2
 
 evaluation:
   primary_metric: macro_f1
-  mode1: true              # per-building damage classification
-  mode2: true              # change detection + classification
-  iou_threshold: 0.5
+  mode1:          true
+  mode2:          true
+  iou_threshold:  0.5
 
 wandb:
   project: ${oc.env:WANDB_PROJECT,xrayearth}
-  entity: ${oc.env:WANDB_ENTITY,null}
-  group: ablation-sequential
-  tags: [xrayearth, maskrcnn, siamese, focal-loss]
+  entity:  ${oc.env:WANDB_ENTITY,null}
+  group:   ablation-sequential
+  tags:    [xrayearth, maskrcnn, siamese, focal-loss]

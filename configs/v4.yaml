@@ -1,0 +1,22 @@
+defaults:
+  - v3
+
+project:
+  version: v4
+  description: "V3 + Data augmentation (flip, rotate, color jitter)"
+
+model:
+  pretrained: true
+  classifier_head: deep
+
+loss:
+  type: cross_entropy
+
+augmentation:
+  enabled: true
+  horizontal_flip: 0.5
+  vertical_flip: 0.5
+  rotation: 15
+  color_jitter: 0.2
+  brightness: 0.2
+  contrast: 0.2

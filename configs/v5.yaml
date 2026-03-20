@@ -1,0 +1,17 @@
+defaults:
+  - v4
+
+project:
+  version: v5
+  description: "V4 + Freeze backbone (train heads only — partial fine-tuning)"
+
+model:
+  pretrained: true
+  classifier_head: deep
+  freeze_backbone: true
+
+loss:
+  type: cross_entropy
+
+augmentation:
+  enabled: true
