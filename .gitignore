@@ -40,3 +40,8 @@ Thumbs.db
 *.swp
 
 venv/
+
+data/xbd/
+data/pre/
+data/post/
+data/labels/
