@@ -1,0 +1,23 @@
+defaults:
+  - v7
+
+project:
+  version: v8
+  description: "V7 + GroupNorm replacing BatchNorm (normalization effect)"
+
+model:
+  pretrained: true
+  classifier_head: deep
+  freeze_backbone: false
+  dropout: 0.3
+  norm_layer: group_norm
+
+loss:
+  type: cross_entropy
+
+training:
+  learning_rate: 0.00005
+  weight_decay: 0.0005
+
+augmentation:
+  enabled: true

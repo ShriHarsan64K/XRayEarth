@@ -1,0 +1,16 @@
+defaults:
+  - v2
+
+project:
+  version: v3
+  description: "V2 + Deeper 2-layer MLP classifier head"
+
+model:
+  pretrained: true
+  classifier_head: deep
+
+loss:
+  type: cross_entropy
+
+augmentation:
+  enabled: false

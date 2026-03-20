@@ -1,0 +1,22 @@
+defaults:
+  - v5
+
+project:
+  version: v6
+  description: "V5 → Unfreeze backbone (full model fine-tuned + optimized HP)"
+
+model:
+  pretrained: true
+  classifier_head: deep
+  freeze_backbone: false
+
+loss:
+  type: cross_entropy
+
+training:
+  learning_rate: 0.00005
+  weight_decay: 0.0005
+  epochs: 30
+
+augmentation:
+  enabled: true

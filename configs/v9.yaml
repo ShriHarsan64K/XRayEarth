@@ -1,0 +1,24 @@
+defaults:
+  - v8
+
+project:
+  version: v9
+  description: "V8 + Reduced depth backbone ResNet34 (model complexity effect)"
+
+model:
+  pretrained: true
+  backbone: resnet34
+  classifier_head: deep
+  freeze_backbone: false
+  dropout: 0.3
+  norm_layer: group_norm
+
+loss:
+  type: cross_entropy
+
+training:
+  learning_rate: 0.00005
+  weight_decay: 0.0005
+
+augmentation:
+  enabled: true
